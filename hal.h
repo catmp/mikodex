@@ -7,11 +7,22 @@
 #ifndef HAL_H
 #define HAL_H
 
-#define HAL_BLACK   0x0000
-#define HAL_WHITE   0xFFFF
-#define HAL_RED     0xF800
-#define HAL_GREEN   0x07E0
-#define HAL_BLUE    0x001F
+
+// https://github.com/moononournation/Arduino_GFX/blob/master/src/Arduino_GFX.h#L32
+#define RGB565(r, g, b) ((((r) & 0xF8) << 8) | (((g) & 0xFC) << 3) | ((b) >> 3))
+
+#define RGB565_BLACK RGB565(0, 0, 0)
+#define RGB565_RED RGB565(248, 0, 0)
+#define RGB565_GREEN RGB565(0, 128, 0)
+#define RGB565_BLUE RGB565(0, 0, 248)
+#define RGB565_YELLOW RGB565(248, 252, 0)
+#define RGB565_BROWN RGB565(168, 44, 40)
+#define RGB565_GRAY RGB565(128, 128, 128)
+#define RGB565_ORANGE RGB565(248, 164, 0)
+#define RGB565_PINK RGB565(248, 192, 200)
+#define RGB565_PURPLE RGB565(128, 0, 128)
+#define RGB565_WHITE RGB565(255, 255, 255)
+
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -23,7 +34,6 @@ extern "C" {
 // lifecycle
 void hal_init(void);
 void hal_flush(void);
-void hal_set_backlight(bool mode);
 
 // input
 bool hal_button_up(void);
