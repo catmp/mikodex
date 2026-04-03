@@ -6,13 +6,13 @@
  */
 #include "state.h"
 #include "hal.h"
+#include "menu.h"
 
 static app_state_t state;
 
 void setup() {
 
   hal_init();
-  hal_draw_txt(20, 130, "MikoDex v0.1", RGB565_RED, 8, 1);
   state.selected_tab = 0;
   state.needs_redraw = true;
 
@@ -21,6 +21,7 @@ void setup() {
 void loop() {
 
   if (state.needs_redraw) {
+    draw_menu(&state);
     hal_flush();
     state.needs_redraw = false;
   }

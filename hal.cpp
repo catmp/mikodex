@@ -61,6 +61,11 @@ extern "C" {
       gfx->flush();
   }
 
+  // random number generator
+  uint32_t hal_get_rng(void){
+    return esp_random();
+  }
+
   // button states
   bool hal_button_up(void){
     return expander->digitalRead(PCA_BUTTON_UP) == LOW;
@@ -70,6 +75,10 @@ extern "C" {
   }
 
   // drawing functions
+  void hal_serial_out(char* text){
+    Serial.println(text);
+  }
+
   void hal_fill_screen(uint16_t color){
     gfx->fillScreen(color);
   }
@@ -87,6 +96,12 @@ extern "C" {
 
     if(bold){
       gfx->setCursor(x+1, y);
+      gfx->println(text);
+    }
+    if(color == RGB565_BLACK){
+      gfx->setCursor(x+2, y);
+      gfx->println(text);
+      gfx->setCursor(x, y+1);
       gfx->println(text);
     }
   }
