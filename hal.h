@@ -42,7 +42,7 @@ bool hal_button_up(void);
 bool hal_button_dn(void);
 
 // drawing
-void hal_serial_out(char* text);
+void hal_serial_out(const char* text);
 void hal_fill_screen(uint16_t color);
 void hal_fill_rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 void hal_draw_rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);

@@ -32,7 +32,7 @@ extern "C" {
   // initialization sequence
   void hal_init(void){
     // set I2C clock
-    Wire.setClock(1000000);
+    Wire.setClock(400000);
 
     // check if gfx object was successfully created
     if(!gfx->begin()) { 
@@ -82,7 +82,7 @@ extern "C" {
   }
 
   // drawing functions
-  void hal_serial_out(char* text){
+  void hal_serial_out(const char* text){
     Serial.println(text);
   }
 

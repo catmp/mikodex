@@ -20,8 +20,8 @@ extern "C" {
 
 struct button {
     bool state;
-    int lastStableState;
-    int lastUnstableState;
+    bool lastStableState;
+    bool lastUnstableState;
     int64_t start;
 };
 
