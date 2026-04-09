@@ -19,6 +19,7 @@ extern "C" {
 #define MAIN_TABS 2
 #define POKE_TABS 4
 
+void draw_main_menu(void);
 void draw_menu(const app_state_t *state);
 void draw_pokedex(const app_state_t *state);
 void draw_party(void);

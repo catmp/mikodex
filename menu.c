@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 void draw_menu(const app_state_t *state){
+
     // draw bg
     hal_fill_screen(RGB565_BLACK);
 
@@ -23,16 +24,15 @@ void draw_menu(const app_state_t *state){
 
     // menu display box
     hal_draw_rect(275, 55, 535, 255, RGB565_WHITE);
-
+    
     //menu tabs
     const char* tab_labels[] = {"Stats", "Moves", "Evos", "Locations"};
     for (int i = 0; i < POKE_TABS; i++) {
         int tab_x = 275 + (i * 136);
         if (i == state->selected_tab) {
-            hal_fill_rect(tab_x, 10, 126, 35, RGB565_WHITE);
-            hal_draw_txt(tab_x + 10, 20, tab_labels[i], RGB565_BLACK, 2, true);
-        } else {
             hal_draw_rect(tab_x, 10, 126, 35, RGB565_WHITE);
+            hal_draw_txt(tab_x + 10, 20, tab_labels[i], RGB565_WHITE, 2, true);
+        } else {
             hal_draw_txt(tab_x + 10, 20, tab_labels[i], RGB565_WHITE, 2, true);
         }
     }

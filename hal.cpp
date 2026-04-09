@@ -31,39 +31,46 @@ extern "C" {
 
   // initialization sequence
   void hal_init(void){
-      // set I2C clock
-      Wire.setClock(1000000);
+    // set I2C clock
+    Wire.setClock(1000000);
 
-      // check if gfx object was successfully created
-      if(!gfx->begin()) { 
-          Serial.println("ERROR: failed to initialize display"); 
-          while(1) vTaskDelay(pdMS_TO_TICKS(100)); }
-      gfx->setRotation(1);
-      Serial.println("Display Initialized");
-      Serial.printf("Height: %" PRIu16 ", Width: %" PRIu16 "\n", hal_height(), hal_width());
+    // check if gfx object was successfully created
+    if(!gfx->begin()) { 
+        Serial.println("ERROR: failed to initialize display"); 
+        while(1) vTaskDelay(pdMS_TO_TICKS(100)); }
+    gfx->setRotation(1);
+    Serial.println("Display Initialized");
+    Serial.printf("Height: %" PRIu16 ", Width: %" PRIu16 "\n", hal_height(), hal_width());
       
 
-      // turn on backlight (must use expander IO pins)
-      expander->pinMode(PCA_TFT_BACKLIGHT, OUTPUT);
-      expander->digitalWrite(PCA_TFT_BACKLIGHT, HIGH);
+    // turn on backlight (must use expander IO pins)
+    expander->pinMode(PCA_TFT_BACKLIGHT, OUTPUT);
+    expander->digitalWrite(PCA_TFT_BACKLIGHT, HIGH);
 
-      // initialize pins
-      expander->pinMode(PCA_BUTTON_UP, INPUT_PULLUP);
-      expander->pinMode(PCA_BUTTON_DOWN, INPUT_PULLUP);
+    // initialize pins
+    expander->pinMode(PCA_BUTTON_UP, INPUT_PULLUP);
+    expander->pinMode(PCA_BUTTON_DOWN, INPUT_PULLUP);
 
-      // flash screen white
-      gfx->fillScreen(RGB565_WHITE);
-      vTaskDelay(pdMS_TO_TICKS(500));
+    // flash screen white
+    gfx->fillScreen(RGB565_WHITE);
+    gfx->flush();
+    vTaskDelay(pdMS_TO_TICKS(500));
+
   }
 
   // display buffer flush
   void hal_flush(void) {
-      gfx->flush();
+    gfx->flush();
   }
 
   // random number generator
   uint32_t hal_get_rng(void){
     return esp_random();
+  }
+
+  // millis
+  unsigned long hal_millis(void){
+    return millis();
   }
 
   // button states
@@ -98,12 +105,16 @@ extern "C" {
       gfx->setCursor(x+1, y);
       gfx->println(text);
     }
-    if(color == RGB565_BLACK){
-      gfx->setCursor(x+2, y);
-      gfx->println(text);
-      gfx->setCursor(x, y+1);
-      gfx->println(text);
-    }
+    // if(color == RGB565_BLACK){
+    //   gfx->setCursor(x+2, y);
+    //   gfx->println(text);
+    //   gfx->setCursor(x+1, y+1);
+    //   gfx->println(text);
+    //   gfx->setCursor(x, y-1);
+    //   gfx->println(text);
+    //   gfx->setCursor(x, y+2);
+    //   gfx->println(text);
+    // }
   }
   void hal_draw_bitmap(int16_t x, int16_t y, int16_t w, int16_t h, const uint16_t* pixels){
     gfx->draw16bitRGBBitmap(x, y, (uint16_t*)pixels, w, h);

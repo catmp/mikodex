@@ -35,6 +35,7 @@ extern "C" {
 void hal_init(void);
 void hal_flush(void);
 uint32_t hal_get_rng(void);
+unsigned long hal_millis(void);
 
 // input
 bool hal_button_up(void);
