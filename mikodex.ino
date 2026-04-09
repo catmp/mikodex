@@ -13,6 +13,7 @@ static app_state_t state;
 
 void setup() {
   hal_init();
+  draw_frame();
   state.selected_tab = 0;
   state.needs_redraw = true;
 }
@@ -34,7 +35,7 @@ void loop() {
   }
 
   if (state.needs_redraw) {
-    draw_menu(&state);
+    draw_tabs(&state);
     hal_flush();
     state.needs_redraw = false;
   }
