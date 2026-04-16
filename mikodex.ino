@@ -16,6 +16,7 @@ void setup() {
   draw_frame();
   state.selected_tab = 0;
   state.needs_redraw = true;
+  
 }
 
 

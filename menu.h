@@ -19,6 +19,9 @@ extern "C" {
 #define MAIN_TABS 2
 #define POKE_TABS 4
 
+#define SCREEN_H 320
+#define SCREEN_W 820
+
 #define TITLE_X 10
 #define TITLE_Y 10
 #define TITLE_W 162
@@ -38,7 +41,11 @@ extern "C" {
 
 #define STAT_BAR_MAX_W 367
 #define STAT_H 41
+#define STAT_MINI_W 85
 #define STAT_VAL_X 752
+
+#define CHAR_2_W 12
+#define CHAR_2_H 16
 
 void draw_frame(void);
 void draw_tabs(const app_state_t *state);
@@ -46,6 +53,7 @@ void draw_pokedex(const app_state_t *state);
 void draw_party(void);
 void draw_stats(void);
 void draw_moves(void);
+void draw_natures(void);
 
 #ifdef __cplusplus
 }

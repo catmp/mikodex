@@ -8,7 +8,19 @@
 #include "menu.h"
 #include "state.h"
 #include "hal.h"
+#include <stdint.h>
 #include <stdio.h>
+#include <string.h>
+
+const char* natures[5][5] = {
+    {"Hardy", "Lonely", "Adamant", "Naughty", "Brave"}, 
+    {"Bold", "Docile", "Impish", "Lax", "Relaxed"}, 
+    {"Modest", "Mild", "Bashful", "Rash", "Quiet"}, 
+    {"Calm", "Gentle", "Careful", "Quirky", "Sassy"},
+    {"Timid", "Hasty", "Jolly", "Naive", "Serious"}
+    };
+const char* statsArr[] = {"HP","Attack","Defense","Sp.Atk","Sp.Def","Speed"};
+const char* statsArrMini[] = {"HP", "Atk", "Def", "SpA", "SpD", "Spe"};
 
 void draw_frame(void){
 
@@ -29,7 +41,7 @@ void draw_frame(void){
 
 void draw_tabs(const app_state_t *state){
     //menu tabs
-    const char* tab_labels[] = {"Stats", "Moves", "Evos", "Locations"};
+    const char* tab_labels[] = {"Stats", "Natures", "Evos", "Locations"};
 
     hal_fill_rect(MENU_BOX_X+5, MENU_BOX_Y+5, MENU_BOX_W-10, MENU_BOX_H-10, RGB565_BLACK); 
     for (int i = 0; i < POKE_TABS; i++) {
@@ -45,7 +57,7 @@ void draw_tabs(const app_state_t *state){
     // navigation
     switch (state->selected_tab) {
         case 0: draw_stats(); break;
-        case 1: //draw_menu(state);
+        case 1: draw_natures(); break;
         // ...
     }
 
@@ -53,7 +65,6 @@ void draw_tabs(const app_state_t *state){
 
 void draw_stats(){
 
-  const char* statsArr[] = {"HP","Attack","Defense","Sp.Atk","Sp.Def","Speed"};
   uint32_t seed = 0;
   char buffer[8];
 
@@ -69,5 +80,29 @@ void draw_stats(){
     hal_draw_rect(MENU_BOX_X+100, statBarY, statBarW, 31, RGB565_WHITE);
     hal_draw_txt(STAT_VAL_X, statY, buffer, RGB565_WHITE, 2, false);
   }
+
+}
+
+void draw_natures(){
+    hal_draw_txt(MENU_BOX_X+20, MENU_BOX_Y+20, "+\\-", RGB565_WHITE, 2, false);
+
+    hal_draw_rect(MENU_BOX_X+20+(CHAR_2_W*3), MENU_BOX_Y+30+CHAR_2_H, 470, 200, RGB565_WHITE);
+
+    for(int i = 1; i < (sizeof(statsArr)/sizeof(statsArr[0])); i++){
+
+        int16_t naturePosY = MENU_BOX_Y+20+(STAT_H*i);
+        int16_t natureNegX = MENU_BOX_X+10+(((SCREEN_W-(MENU_BOX_X))/6)*i); 
+
+        hal_draw_txt(MENU_BOX_X+10, naturePosY, statsArrMini[i], RGB565_WHITE, 2, false);
+        hal_draw_txt(natureNegX, MENU_BOX_Y+20, statsArrMini[i], RGB565_WHITE, 2, false);
+
+        for(int j = 0; j < ((sizeof(statsArr)/sizeof(statsArr[0]))-1); j++){
+            int16_t colStart = MENU_BOX_X+30+(CHAR_2_W*3)+(((CHAR_2_W*7)+9)*j);
+            int16_t strW    = CHAR_2_W * strlen(natures[i-1][j]);
+            int16_t natureX = colStart + ((((CHAR_2_W*7)+9) - strW) / 2);
+            hal_draw_txt(natureX, naturePosY, natures[i-1][j], RGB565_WHITE, 2, false);
+        }
+
+    }
 
 }
