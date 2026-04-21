@@ -31,7 +31,6 @@ extern struct button dn_btn;
 void buttons_update(void);
 bool button_pressed(struct button *button);
 
-
 #ifdef __cplusplus
 }
 #endif

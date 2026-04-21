@@ -44,6 +44,10 @@ extern "C" {
 #define STAT_MINI_W 85
 #define STAT_VAL_X 752
 
+// size 1: 6x8
+// size 2: 12x16
+// size 3: 18x24
+// size 4: 24x32
 #define CHAR_2_W 12
 #define CHAR_2_H 16
 

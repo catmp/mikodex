@@ -43,7 +43,7 @@ void draw_tabs(const app_state_t *state){
     //menu tabs
     const char* tab_labels[] = {"Stats", "Natures", "Evos", "Locations"};
 
-    hal_fill_rect(MENU_BOX_X+5, MENU_BOX_Y+5, MENU_BOX_W-10, MENU_BOX_H-10, RGB565_BLACK); 
+    hal_fill_rect(MENU_BOX_X+1, MENU_BOX_Y+1, MENU_BOX_W-10, MENU_BOX_H-10, RGB565_BLACK); 
     for (int i = 0; i < POKE_TABS; i++) {
         int tab_x = MENU_BOX_X + (i * TAB_W); 
         hal_draw_txt(tab_x + 10, TITLE_Y + 10, tab_labels[i], RGB565_WHITE, 2, true);
@@ -80,13 +80,12 @@ void draw_stats(){
     hal_draw_rect(MENU_BOX_X+100, statBarY, statBarW, 31, RGB565_WHITE);
     hal_draw_txt(STAT_VAL_X, statY, buffer, RGB565_WHITE, 2, false);
   }
-
 }
 
 void draw_natures(){
     hal_draw_txt(MENU_BOX_X+20, MENU_BOX_Y+20, "+\\-", RGB565_WHITE, 2, false);
 
-    hal_draw_rect(MENU_BOX_X+20+(CHAR_2_W*3), MENU_BOX_Y+30+CHAR_2_H, 470, 200, RGB565_WHITE);
+    //hal_draw_rect(MENU_BOX_X+20+(CHAR_2_W*3), MENU_BOX_Y+30+CHAR_2_H, 470, 200, RGB565_WHITE);
 
     for(int i = 1; i < (sizeof(statsArr)/sizeof(statsArr[0])); i++){
 
@@ -97,12 +96,11 @@ void draw_natures(){
         hal_draw_txt(natureNegX, MENU_BOX_Y+20, statsArrMini[i], RGB565_WHITE, 2, false);
 
         for(int j = 0; j < ((sizeof(statsArr)/sizeof(statsArr[0]))-1); j++){
-            int16_t colStart = MENU_BOX_X+30+(CHAR_2_W*3)+(((CHAR_2_W*7)+9)*j);
+            int16_t colStart = MENU_BOX_X+20+(CHAR_2_W*3)+(((CHAR_2_W*7)+9)*j);
             int16_t strW    = CHAR_2_W * strlen(natures[i-1][j]);
             int16_t natureX = colStart + ((((CHAR_2_W*7)+9) - strW) / 2);
             hal_draw_txt(natureX, naturePosY, natures[i-1][j], RGB565_WHITE, 2, false);
         }
-
     }
-
 }
+
